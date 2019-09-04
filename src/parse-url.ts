@@ -47,6 +47,6 @@ export default function parseURL(url: string) {
     hash: anchor.hash,
     href: anchor.href,
     pathname: pathname,
-    fullpath: pathname + (anchor.search || '') + (anchor.hash || ''),
+    fullpath: pathname + (anchor.search || '') + (anchor.hash || '')
   };
 }
