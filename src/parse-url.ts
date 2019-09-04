@@ -16,9 +16,14 @@
  * }
  */
 export default function parseURL(url: string) {
-  // TODO: something for when document isn't present... #yolo
-  var anchor = document.createElement('a');
-  anchor.href = url;
+  var anchor;
+  try {
+    anchor = document.createElement('a');
+    anchor.href = url;
+  } catch (error) {
+    var URL = require('url-parse');
+    anchor = new URL(url);
+  }
 
   if (!anchor.host) {
     // eslint-disable-next-line no-self-assign
@@ -42,6 +47,6 @@ export default function parseURL(url: string) {
     hash: anchor.hash,
     href: anchor.href,
     pathname: pathname,
-    fullpath: pathname + (anchor.search || '') + (anchor.hash || '')
+    fullpath: pathname + (anchor.search || '') + (anchor.hash || ''),
   };
 }
