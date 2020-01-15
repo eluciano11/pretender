@@ -47,7 +47,15 @@ var Pretender = (function (FakeXMLHttpRequest, FakeFetch, RouteRecognizer) {
    */
   function parseURL(url) {
       // TODO: something for when document isn't present... #yolo
-      var anchor = document.createElement('a');
+      var anchor;
+      try {
+          anchor = document.createElement('a');
+          anchor.href = url;
+      }
+      catch (_a) {
+          var URL = require('url-parse');
+          anchor = new URL(url);
+      }
       anchor.href = url;
       if (!anchor.host) {
           // eslint-disable-next-line no-self-assign

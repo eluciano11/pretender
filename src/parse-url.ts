@@ -17,7 +17,14 @@
  */
 export default function parseURL(url: string) {
   // TODO: something for when document isn't present... #yolo
-  var anchor = document.createElement('a');
+  var anchor;
+  try {
+    anchor = document.createElement('a');
+    anchor.href = url;
+  } catch {
+    var URL = require('url-parse');
+    anchor = new URL(url);
+  }
   anchor.href = url;
 
   if (!anchor.host) {
